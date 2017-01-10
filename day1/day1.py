@@ -5,6 +5,9 @@ class BlockCounter(object):
         self.commands = None
         self.dir_len = [0, 0, 0, 0] # [north, east, south, west]
         self.curr_dir = 0
+        self.seen = set()
+        self.seen.add((0, 0)) # in xy coord
+        self.start = None
 
     def read_input(self, filename):
         f = open(filename, 'r')
@@ -13,16 +16,32 @@ class BlockCounter(object):
     def one_command(self, command):
         command_dir = command[:1]
         command_len = int(command[1:])
+
         if command_dir == 'R':
             self.curr_dir = (self.curr_dir + 1) % 4
         elif command_dir == 'L':
             self.curr_dir = (self.curr_dir - 1) % 4
-        self.dir_len[self.curr_dir] += command_len
+
+        if self.start:
+            self.dir_len[self.curr_dir] += command_len
+        else:
+            while command_len != 0:
+                command_len -= 1
+                self.dir_len[self.curr_dir] += 1
+                curr_loc = (self.dir_len[0] - self.dir_len[2], self.dir_len[1] - self.dir_len[3])
+                if curr_loc in self.seen:
+                    self.start = curr_loc
+                else:
+                    self.seen.add(curr_loc)
 
     def follow_commands(self):
         for cmd in self.commands:
             self.one_command(cmd)
-        print abs(self.dir_len[0] - self.dir_len[2]) + abs(self.dir_len[1] - self.dir_len[3])
+
+        endloc = abs(self.dir_len[0] - self.dir_len[2]) + abs(self.dir_len[1] - self.dir_len[3])
+        startloc = abs(self.start[0]) + abs(self.start[1])
+        print 'End location: {} blocks away'.format(endloc)
+        print 'Start location: {} blocks away'.format(startloc)
 
 if __name__ == "__main__":
     bc = BlockCounter()
