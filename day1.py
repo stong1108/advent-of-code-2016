@@ -6,8 +6,9 @@ class BlockCounter(object):
         self.dir_len = [0, 0, 0, 0] # [north, east, south, west]
         self.curr_dir = 0
 
-    def read_input(self, string):
-        self.commands = string.split(', ')
+    def read_input(self, filename):
+        f = open(filename, 'r')
+        self.commands = f.read().split(', ')
 
     def one_command(self, command):
         command_dir = command[:1]
@@ -21,9 +22,9 @@ class BlockCounter(object):
     def follow_commands(self):
         for cmd in self.commands:
             self.one_command(cmd)
-        return abs(self.dir_len[0] - self.dir_len[2]) + abs(self.dir_len[1] - self.dir_len[3])
+        print abs(self.dir_len[0] - self.dir_len[2]) + abs(self.dir_len[1] - self.dir_len[3])
 
 if __name__ == "__main__":
     bc = BlockCounter()
-    bc.read_input(raw_input('Insert input: '))
-    print bc.follow_commands()
+    bc.read_input('inputs/day1.txt')
+    bc.follow_commands()
