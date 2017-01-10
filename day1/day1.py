@@ -26,5 +26,5 @@ class BlockCounter(object):
 
 if __name__ == "__main__":
     bc = BlockCounter()
-    bc.read_input('inputs/day1.txt')
+    bc.read_input('day1.txt')
     bc.follow_commands()

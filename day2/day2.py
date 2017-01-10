@@ -32,5 +32,5 @@ class KeypadCode(object):
 
 if __name__ == "__main__":
     KC = KeypadCode()
-    KC.read_input('inputs/day2.txt')
+    KC.read_input('day2.txt')
     KC.get_code()
