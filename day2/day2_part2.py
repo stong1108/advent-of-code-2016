@@ -1,10 +1,8 @@
 class KeypadCode2(object):
 
     def __init__(self):
-        self.keypad = [list('  1  '), list(' 234 '),
-                        list('56789'), list(' ABC '),
-                        list('  D  ')]
-        self.coord = [2, 0] # [row, col]
+        self.keypad = ['  1  ', ' 234 ', '56789', ' ABC ', '  D  ']
+        self.coord = [2, 0] # [row, col], start at 5
         self.moves = {'U': [-1, 0], 'D': [1, 0], 'L': [0, -1], 'R': [0, 1]}
         self.code = ''
 
