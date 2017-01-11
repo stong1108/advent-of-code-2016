@@ -7,10 +7,7 @@ class Solution(object):
 
     def read_input(self, filename):
         f = open(filename, 'r')
-        rawlines = f.readlines()
-        for ln in rawlines:
-            cleaned = ln.strip('\n').strip().split()
-            self.lines += [map(int, cleaned)]
+        self.lines = [map(int, ln.strip('\n').split()) for ln in f.readlines()]
 
     def _is_triangle(self, s1, s2, s3):
         return int(all([s1+s2 > s3, s1+s3 > s2, s2+s3 > s1]))
