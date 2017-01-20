@@ -9,8 +9,8 @@ class Solution(object):
         self.secretmessage = {}
 
     def read_input(self, filename):
-        f = open(filename, 'r')
-        self.rooms = [ln.strip('\n') for ln in f.readlines()]
+        with open(filename) as f:
+            self.rooms = f.read().splitlines()
 
     def split_room_info(self, room):
         checksum = room[-6:-1]

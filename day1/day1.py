@@ -1,4 +1,4 @@
-class BlockCounter(object):
+class Solution(object):
 
     def __init__(self):
         self.loc = (0, 0)
@@ -10,8 +10,8 @@ class BlockCounter(object):
         self.start = None
 
     def read_input(self, filename):
-        f = open(filename, 'r')
-        self.commands = f.read().split(', ')
+        with open(filename, 'r') as f:
+            self.commands = f.read().split(', ')
 
     def one_command(self, command):
         command_dir = command[:1]
@@ -44,6 +44,6 @@ class BlockCounter(object):
         print 'Start location: {} blocks away'.format(startloc)
 
 if __name__ == "__main__":
-    bc = BlockCounter()
-    bc.read_input('day1.txt')
-    bc.follow_commands()
+    s = Solution()
+    s.read_input('day1.txt')
+    s.follow_commands()

@@ -1,4 +1,4 @@
-class KeypadCode(object):
+class Solution(object):
 
     def __init__(self):
         self.curr_num = 5
@@ -8,8 +8,8 @@ class KeypadCode(object):
         self.moves = {'U': -3, 'D': 3, 'L': -1, 'R': 1}
 
     def read_input(self, filename):
-        f = open(filename, 'r')
-        self.lines = f.readlines()
+        with open(filename, 'r') as f:
+            self.lines = f.readlines()
 
     def get_one_num(self, line):
         for char in line.strip('\n'):
@@ -31,6 +31,6 @@ class KeypadCode(object):
         print self.code
 
 if __name__ == "__main__":
-    KC = KeypadCode()
-    KC.read_input('day2.txt')
-    KC.get_code()
+    s = Solution()
+    s.read_input('day2.txt')
+    s.get_code()

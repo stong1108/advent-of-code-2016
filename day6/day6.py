@@ -7,10 +7,10 @@ class Solution(object):
         self.least_message = ''
 
     def read_input(self, filename):
-        f = open(filename, 'r')
-        for ln in f.readlines():
-            self.lines.append(list(ln.strip()))
-        self.transposed = map(list, zip(*self.lines))
+        with open(filename, 'r') as f:
+            for ln in f.readlines():
+                self.lines.append(list(ln.strip()))
+            self.transposed = map(list, zip(*self.lines))
 
     def _most_and_least_letter(self, lst):
         d = dict()

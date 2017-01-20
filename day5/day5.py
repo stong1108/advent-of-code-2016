@@ -31,7 +31,8 @@ class Solution(object):
         return ''.join(self.password2)
 
 if __name__ == '__main__':
-    door_id = open('day5.txt').read().strip()
+    with open('day5.txt', 'r') as f:
+        door_id = f.read().strip()
     s = Solution(door_id)
     print 'Password 1: ' + s.decrypt1()
     print 'Password 2: ' + s.decrypt2()

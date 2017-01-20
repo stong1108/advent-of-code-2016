@@ -1,4 +1,4 @@
-class KeypadCode2(object):
+class Solution2(object):
 
     def __init__(self):
         self.keypad = ['  1  ', ' 234 ', '56789', ' ABC ', '  D  ']
@@ -7,8 +7,8 @@ class KeypadCode2(object):
         self.code = ''
 
     def read_input(self, filename):
-        f = open(filename, 'r')
-        self.lines = f.readlines()
+        with open(filename, 'r') as f:
+            self.lines = f.readlines()
 
     def get_one_num(self, line):
         for char in line.strip('\n'):
@@ -28,6 +28,6 @@ class KeypadCode2(object):
         print self.code
 
 if __name__ == "__main__":
-    KC2 = KeypadCode2()
-    KC2.read_input('day2.txt')
-    KC2.get_code()
+    s2 = Solution2()
+    s2.read_input('day2.txt')
+    s2.get_code()
