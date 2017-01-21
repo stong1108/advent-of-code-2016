@@ -15,30 +15,24 @@ class Solution(object):
     def rect(self, width, height):
         self.screen[:height, :width] = '#'
 
-    def rotate_row(self, ind, by):
-        shift = self.screen_w - by
-        row = self.screen[ind]
-        newrow = []
-        for i in xrange(self.screen_w):
-            newrow.append(row[(i+shift)%self.screen_w])
-        self.screen[ind] = np.array(newrow)
+    def rotate(self, way, ind, by):
+        d_way = {'row': (self.screen_w, '{}, :'), 'column': (self.screen_h, ':, {}')}
+        dim, inds = d_way[way]
+        inds = inds.format(ind)
 
-    def rotate_col(self, ind, by):
-        shift = self.screen_h - by
-        col = self.screen[:, ind]
-        newcol = []
-        for i in xrange(self.screen_h):
-            newcol.append(col[(i+shift)%self.screen_h])
-        self.screen[:, ind] = np.array(newcol)
+        old = eval('self.screen[{}]'.format(inds))
+        new = []
+        for i in xrange(dim):
+            new.append(old[(i + dim - by) % dim])
+            
+        exec('self.screen[{}] = np.array(new)'.format(inds))
 
     def do_cmd(self, cmd):
         chunks = cmd.split()
         if chunks[0] == 'rect':
             self.rect(*map(int, chunks[1].split('x')))
-        elif chunks[1] == 'row':
-            self.rotate_row(*map(int, chunks[-2:]))
-        elif chunks[1] == 'column':
-            self.rotate_col(*map(int, chunks[-2:]))
+        else:
+            self.rotate(*([chunks[1]] + map(int, chunks[2:])))
 
     def all_cmds(self):
         for cmd in self.cmds:
