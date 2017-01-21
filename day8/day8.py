@@ -1,4 +1,5 @@
 import numpy as np
+import pprint
 
 class Solution(object):
 
@@ -6,7 +7,7 @@ class Solution(object):
         self.cmds = []
         self.screen_w = 50
         self.screen_h = 6
-        self.screen = np.tile('.', (self.screen_h, self.screen_w))
+        self.screen = np.tile(' ', (self.screen_h, self.screen_w))
 
     def read_input(self, filename):
         with open(filename, 'r') as f:
@@ -24,7 +25,7 @@ class Solution(object):
         new = []
         for i in xrange(dim):
             new.append(old[(i + dim - by) % dim])
-            
+
         exec('self.screen[{}] = np.array(new)'.format(inds))
 
     def do_cmd(self, cmd):
@@ -37,9 +38,13 @@ class Solution(object):
     def all_cmds(self):
         for cmd in self.cmds:
             self.do_cmd(cmd)
-        return len(np.where(self.screen == '#')[0])
+
+        for row in self.screen:
+            print ''.join(row)
+
+        print 'Number of lit pixels: {}'.format(len(np.where(self.screen == '#')[0]))
 
 if __name__ == '__main__':
     s = Solution()
     s.read_input('day8.txt')
-    print s.all_cmds()
+    s.all_cmds()
